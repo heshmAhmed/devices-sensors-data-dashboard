@@ -1,0 +1,35 @@
+<div class="container p-5">
+  <div class="row">
+    <div class="col-md-6">
+      <input [(ngModel)]="hexData" class="form-control mb-3" placeholder="Enter hexadecimal data" />
+      <button class="btn btn-success" (click)="sendData()">Send Data</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Device ID</th>
+            <th scope="col">Temperature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let data of pagedTableData | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalElements, id: 'data'}"
+            (click)="onRowClicked(data.deviceId)" style="cursor: pointer;"
+            [class.selected]="selectedDeviceId === data.deviceId">
+            <td>{{ data.deviceId }}</td>
+            <td>{{ data.temperature }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="onPageChange($event)" id="data" class="mt-3" previousLabel="Previous"
+        nextLabel="Next" [directionLinks]="true"></pagination-controls>
+    </div>
+    <div class="col-md-6">
+      <app-device-sensor-data-list [selectedDeviceId]="selectedDeviceId"
+        *ngIf="selectedDeviceId"></app-device-sensor-data-list>
+    </div>
+  </div>
+</div>
