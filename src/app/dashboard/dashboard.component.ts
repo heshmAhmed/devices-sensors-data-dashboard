@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.sensorDataService.getDashboardData(this.page - 1, this.pageSize).pipe(takeUntil(this.unsubscribe$))
     .subscribe(resp => {
       this.fillTableData(resp);
-      console.log(resp)
     });
   }
 
