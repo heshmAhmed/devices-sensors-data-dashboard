@@ -10,7 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class DeviceSensorDataComponent implements OnInit, OnChanges {
   @Input("selectedDeviceId") deviceId: string = '';
-  deviceSensorValues: DeviceSensorData[] = [];
+  deviceSensorDataList: DeviceSensorData[] = [];
   private unsubscribe$ = new Subject<void>();
   page = 0;
   pageSize = 4;
@@ -35,7 +35,7 @@ export class DeviceSensorDataComponent implements OnInit, OnChanges {
       .subscribe(resp => {
         this.totalElements = resp.totalElements;
         this.numOfPages = resp.totalPages;
-        this.deviceSensorValues = resp.content;
+        this.deviceSensorDataList = resp.content;
       })
   }
 

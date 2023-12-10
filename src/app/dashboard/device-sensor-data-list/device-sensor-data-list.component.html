@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <tr
-      *ngFor="let value of deviceSensorValues | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalElements, id: 'list'}">
+      *ngFor="let value of deviceSensorDataList | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: totalElements, id: 'list'}">
       <td>{{ value.deviceId }}</td>
       <td>{{ value.temperature }}</td>
       <td>{{ value.timestamp | date:'MMM d, y, h:mm:ss a' }}</td>
