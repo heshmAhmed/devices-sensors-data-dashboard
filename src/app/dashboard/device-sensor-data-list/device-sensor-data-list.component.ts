@@ -12,7 +12,7 @@ export class DeviceSensorDataComponent implements OnInit, OnChanges {
   @Input("selectedDeviceId") deviceId: string = '';
   deviceSensorDataList: DeviceSensorData[] = [];
   private unsubscribe$ = new Subject<void>();
-  page = 0;
+  page = 1;
   pageSize = 4;
   totalElements = 0;
   numOfPages = 1;
@@ -50,7 +50,7 @@ export class DeviceSensorDataComponent implements OnInit, OnChanges {
 
 
   initPageVariables(): void { 
-    this.page = 0;
+    this.page = 1;
     this.pageSize = 4;
     this.totalElements = 0;
     this.numOfPages = 1;

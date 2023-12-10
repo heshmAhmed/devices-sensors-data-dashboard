@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hexData = '';
   private unsubscribe$ = new Subject<void>();
   pagedTableData: DeviceSensorData[] = [];
-  page = 0;
+  page = 1;
   pageSize = 4;
   totalElements = 0;
   numOfPages = 1;
@@ -27,8 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.sensorDataService.SubscribeToSensorDataServerEvents().pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: (data) => {
-        this.pagedTableData = data.content;
-        console.log('SSE data:', this.pagedTableData);
+        this.fillTableData(data)
       }
       , error: (error) => {
         console.error('SSE error:', error)
@@ -36,14 +35,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  private fillTableData(data: any): void {
+    this.pagedTableData = data.content;
+    this.totalElements = data.totalElements;
+    this.numOfPages = data.totalPages;
+    console.log('SSE data:', this.pagedTableData);
+  }
+
 
 
   laodDashboardData(): void {
     this.sensorDataService.getDashboardData(this.page - 1, this.pageSize).pipe(takeUntil(this.unsubscribe$))
     .subscribe(resp => {
-      this.pagedTableData = resp.content;
-      this.totalElements = resp.totalElements;
-      this.numOfPages = resp.totalPages;
+      this.fillTableData(resp);
       console.log(resp)
     });
   }
